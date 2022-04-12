@@ -1,0 +1,34 @@
+version: 0.19.0
+name: start-level
+namespace: ""
+runtime: go
+registry: ""
+image: docker.io/salaboy/start-level:latest
+imageDigest: sha256:26267ae07124a2dc7a96a7a4549523980d0b0aca393565479bd10350ef9ecbc9
+build: local
+git:
+  url: null
+  revision: null
+  contextdir: null
+builder: gcr.io/paketo-buildpacks/builder:base
+builders:
+  base: gcr.io/paketo-buildpacks/builder:base
+  default: gcr.io/paketo-buildpacks/builder:base
+  full: gcr.io/paketo-buildpacks/builder:full
+buildpacks:
+- paketo-buildpacks/go-dist
+- ghcr.io/boson-project/go-function-buildpack:tip
+volumes: []
+buildEnvs: []
+envs:
+- name: REDIS_HOST
+  value: 10.200.130.188
+annotations: {}
+options: {}
+labels: []
+healthEndpoints:
+  liveness: /health/liveness
+  readiness: /health/readiness
+created: 2022-04-10T14:23:07.888326+01:00
+invocation:
+  format: http
