@@ -4,21 +4,22 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/go-redis/redis"
+	"log"
 	"net/http"
 	"os"
 	"time"
+	"github.com/go-redis/redis"
 )
 
 var redisHost = os.Getenv("REDIS_HOST")
 var redisPassword = os.Getenv("REDIS_PASSWORD")
 
-type GameTime struct{
+type GameTime struct {
 	GameTimeId string
-	SessionId string
-	Level string
-	Type string
-	Time      time.Time
+	SessionId  string
+	Level      string
+	Type       string
+	Time       time.Time
 }
 
 // Handle an HTTP Request.
@@ -52,6 +53,7 @@ func Handle(ctx context.Context, res http.ResponseWriter, req *http.Request) {
 	// if there has been an error setting the value
 	// handle the error
 	if err != nil {
+		log.Println("Error while pushing data to Redis: ", err)
 		http.Error(res, err.Error(), http.StatusBadRequest)
 		return
 	}

@@ -6,10 +6,7 @@ registry: ""
 image: docker.io/salaboy/start-level:latest
 imageDigest: sha256:26267ae07124a2dc7a96a7a4549523980d0b0aca393565479bd10350ef9ecbc9
 build: local
-git:
-  url: null
-  revision: null
-  contextdir: null
+git: {}
 builder: gcr.io/paketo-buildpacks/builder:base
 builders:
   base: gcr.io/paketo-buildpacks/builder:base
