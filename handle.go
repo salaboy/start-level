@@ -4,13 +4,14 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/go-redis/redis"
 	"net/http"
 	"os"
-	"github.com/go-redis/redis"
 	"time"
 )
 
 var redisHost = os.Getenv("REDIS_HOST")
+var redisPassword = os.Getenv("REDIS_PASSWORD")
 
 type GameTime struct{
 	GameTimeId string
@@ -24,7 +25,7 @@ type GameTime struct{
 func Handle(ctx context.Context, res http.ResponseWriter, req *http.Request) {
 	client := redis.NewClient(&redis.Options{
 		Addr:     redisHost + ":6379",
-		Password: "",
+		Password: redisPassword,
 		DB:       0,
 	})
 

@@ -20,7 +20,11 @@ buildpacks:
 - ghcr.io/boson-project/go-function-buildpack:tip
 volumes: []
 buildEnvs: []
-envs: []
+envs:
+- name: REDIS_HOST
+  value: 10.200.130.188
+- name: REDIS_PASSWORD
+  value: ""
 annotations: {}
 options: {}
 labels: []
