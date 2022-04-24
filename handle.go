@@ -4,11 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/go-redis/redis"
 	"log"
 	"net/http"
 	"os"
 	"time"
-	"github.com/go-redis/redis"
 )
 
 var redisHost = os.Getenv("REDIS_HOST")
@@ -25,7 +25,7 @@ type GameTime struct {
 // Handle an HTTP Request.
 func Handle(ctx context.Context, res http.ResponseWriter, req *http.Request) {
 	client := redis.NewClient(&redis.Options{
-		Addr:     redisHost + ":6379",
+		Addr:     redisHost,
 		Password: redisPassword,
 		DB:       0,
 	})
@@ -35,6 +35,7 @@ func Handle(ctx context.Context, res http.ResponseWriter, req *http.Request) {
 	// respond to the client with the error message and a 400 status code.
 	err := json.NewDecoder(req.Body).Decode(&gt)
 	if err != nil {
+		log.Println("Error while deserializing GameTime: ", err)
 		http.Error(res, err.Error(), http.StatusBadRequest)
 		return
 	}
@@ -45,6 +46,7 @@ func Handle(ctx context.Context, res http.ResponseWriter, req *http.Request) {
 
 	gameTimeJson, err := json.Marshal(gt)
 	if err != nil {
+		log.Println("Error while serializing GameTime: ", err)
 		http.Error(res, err.Error(), http.StatusBadRequest)
 		return
 	}
@@ -53,7 +55,7 @@ func Handle(ctx context.Context, res http.ResponseWriter, req *http.Request) {
 	// if there has been an error setting the value
 	// handle the error
 	if err != nil {
-		log.Println("Error while pushing data to Redis: ", err)
+		log.Println("Error while pushing GameTime to Redis: ", err)
 		http.Error(res, err.Error(), http.StatusBadRequest)
 		return
 	}
