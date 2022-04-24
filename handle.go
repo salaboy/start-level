@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-var redisHost = os.Getenv("REDIS_HOST")
+var redisHost = os.Getenv("REDIS_HOST") // This should include the port which is most of the time 6379
 var redisPassword = os.Getenv("REDIS_PASSWORD")
 
 type GameTime struct {

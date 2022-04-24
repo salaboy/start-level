@@ -4,7 +4,7 @@ namespace: ""
 runtime: go
 registry: ""
 image: docker.io/salaboy/start-level:latest
-imageDigest: sha256:26267ae07124a2dc7a96a7a4549523980d0b0aca393565479bd10350ef9ecbc9
+imageDigest: sha256:edc30a58391ed177f07af55dbb5eb7fba741674dc33ffcf84d174dffd976e4ce
 build: local
 git: {}
 builder: gcr.io/paketo-buildpacks/builder:base
